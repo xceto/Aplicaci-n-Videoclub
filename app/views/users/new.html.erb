@@ -1,0 +1,5 @@
+<%if params[:user_id].present? %>
+	<%= render 'form_nuevo_arriendo' %>
+<% else %>
+	<%= render 'form' %>
+<% end %>

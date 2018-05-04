@@ -1,0 +1,33 @@
+<h1 style="margin-bottom: 50px">Arriendos por usuarios </h1>
+<% if @usuarios.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Email</th>
+        <th scope="col">Cantidad Peliculas</th>
+        <th scope="col">Cantidad Series</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <th scope="row"> <%= usuario[0] %> </th>
+        <td><%= usuario[1] %></td>
+        <td><%= usuario[2] %></td>
+        <td><%= usuario[3] %></td>
+        <td><%= usuario[4] %></td>
+        <td>
+          <%= link_to '<i class="icon-indent-right"></i> editar'.html_safe, user_arriendos_path(usuario[0]), class: 'button alt' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info alert-dismissible" role="alert" style="margin-top: 20px">
+    Actualmente no se han realizado arriendos
+  </div>
+<% end %>

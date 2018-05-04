@@ -1,0 +1,71 @@
+<h3 style="padding-bottom: 20px">Arriendos del usuario</h3>
+<%if notice.present? %>
+	<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 20px">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>Success! </strong> <%= notice %>
+	</div>
+<%elsif alert.present? %>	
+	<div class="alert alert-danger alert-dismissible" role="alert" style="margin-top: 20px">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>Error! </strong> <%= alert %>
+	</div>
+<%end%>
+
+<%= @usuario = '' if @usuario.nil? %>
+<div style="width: 50%; margin-bottom: 2%">
+	<%= form_for @usuario do |f| %>
+	  <div class="form-group">
+	    <%= label_tag :nombre, 'Nombre Cliente'%>
+	    <%= f.text_field :nombre ,class: 'form-control', disabled: true%>
+	  </div>
+
+	  <div class="form-group">
+	    <%= label_tag :email, 'Email Cliente'%>
+	    <%= f.text_field :email ,class: 'form-control', disabled: true%>
+	  </div>
+	<%end%>
+</div>
+
+<div class="panel panel-info">
+  <div class="panel-heading">Arriendos Actuales
+  	<%= link_to 'Agregar', user_arriendos_nuevo_path(params[:user_id]), class: 'button alt', style: 'float:right', method: :get %>
+  </div>
+  <div class="panel-body">
+			<%unless @arriendos.present?%>
+				<div class="alert alert-danger" role="alert">Este usuario no tiene Arriendos</div>
+			<%else%>
+				<table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">Titulo</th>
+				      <th scope="col">Tipo</th>
+				      <th scope="col">Genero</th>
+				      <th scope="col">Precio Arriendo</th>
+				      <th scope="col">Duración/Temporadas</th>
+				      <th scope="col"></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+			  	<% @arriendos.each do |arriendo|%>
+				    <tr>
+				      <th scope="row"> <%= arriendo.titulo%></th>
+				      <td><%= arriendo.entidad_type%></td>
+				      <td><%= arriendo.genero%></td>
+				      <td><%= arriendo.precio_arriendo%></td>
+				      <td>
+				      	<% if arriendo.entidad_type == 'Pelicula' %>
+				      		<span><%= arriendo.duracion%> Minutos</span>
+				      	<%else%>
+				      		<span><%= arriendo.duracion%> Temporadas</span>
+				      	<%end%>
+				      </td>
+				      <td><%= link_to "borrar", arriendo_path(arriendo.id), method: :delete, data: { confirm: 'Esta Seguro que quiere eliminar?' }%></td>
+				    </tr>  	
+			  	<% end %>
+		  	<%end%>
+		  </tbody>
+		</table>
+	 </div>
+</div>
+
+<%= link_to 'Volver ', root_path, class: "btn btn-info", style: "margin-bottom: 20px"%>

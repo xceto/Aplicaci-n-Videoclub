@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_usuario: 
+  entidad_type: MyString
+  entidad_id: 1
+
+two:
+  id_usuario: 
+  entidad_type: MyString
+  entidad_id: 1

@@ -1,0 +1,51 @@
+<%if notice.present? %>
+  <div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 20px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success! </strong> <%= notice %>
+  </div>
+<%elsif alert.present? %> 
+  <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top: 20px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error! </strong> <%= alert %>
+  </div>
+<%end%>
+<h3 style="margin-bottom: 20px">Peliculas Disponibles</h3>
+<%= link_to 'Agregar Pelicula ', new_pelicula_path, class: "btn btn-info", style: "margin-bottom: 20px",method: :get%>
+
+<h3>Buscador</h3>
+<%= render 'form_buscador'%>
+
+
+<% if @peliculas.present? %>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Titulo</th>
+	      <th scope="col">Genero</th>
+	      <th scope="col">Precio Arriendo</th>
+	      <th scope="col">Duración</th>
+	      <th scope="col"></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @peliculas.each do |pelis|%>	  	
+		    <tr>
+		      <th scope="row"><%= pelis.id%></th>
+		      <td><%= pelis.titulo%></td>
+		      <td><%= pelis.genero%></td>
+		      <td>$ <%= pelis.precio_arriendo%></td>
+		      <td><%= pelis.duracion%> Min.</td>
+		      <td>
+		      	<%= link_to "editar",edit_pelicula_path(pelis.id)%> | 
+		      	<%= link_to "borrar",pelicula_path(pelis.id), method: :delete, data: { confirm: 'Esta Seguro desea quiere eliminar?' }%>   
+		    	</td>
+		    </tr>
+	    <%end%>	    
+	  </tbody>
+	</table>	
+<%else%>
+	<div class="alert alert-info alert-dismissible" role="alert" style="margin-top: 20px">
+	  Actualmente no hay peliculas disponibles
+	</div>
+<%end%>

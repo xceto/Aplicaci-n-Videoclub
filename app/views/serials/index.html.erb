@@ -1,0 +1,55 @@
+<%if notice.present? %>
+  <div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 20px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Success! </strong> <%= notice %>
+  </div>
+<%elsif alert.present? %> 
+  <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top: 20px">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Error! </strong> <%= alert %>
+  </div>
+<%end%>
+<h3 style="margin-bottom: 20px">Series Disponibles</h3>
+<%= link_to 'Agregar Serie ', new_serial_path, class: "btn btn-info", style: "margin-bottom: 20px",method: :get%>
+<h3>Buscador</h3>
+<%= render 'form_buscador'%>
+
+<% if @series.present? %>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Titulo</th>
+	      <th scope="col">Genero</th>
+	      <th scope="col">Precio Arriendo</th>
+	      <th scope="col">Temporadas</th>
+	      <th scope="col"></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @series.each do |serie_tv|%>	  	
+		    <tr>
+		      <th scope="row"><%= serie_tv.id%></th>
+		      <td><%= serie_tv.titulo%></td>
+		      <td><%= serie_tv.genero%></td>
+		      <td>$ <%= serie_tv.precio_arriendo%></td>
+		      <td><%= serie_tv.temporada%>
+		      	<%if serie_tv.temporada.to_i == 1 %>
+		      	 Temp.
+		      	<%else%>
+		      	 Temps.
+		      	<%end%>
+		      </td>
+		      <td>
+		      	<%= link_to "editar",edit_serial_path(serie_tv.id)%> | 
+		      	<%= link_to "borrar",serial_path(serie_tv.id), method: :delete, data: { confirm: 'Esta Seguro desea quiere eliminar?' }%>   
+		    	</td>
+		    </tr>
+	    <%end%>	    
+	  </tbody>
+	</table>	
+<%else%>
+	<div class="alert alert-info alert-dismissible" role="alert" style="margin-top: 20px">
+	  Actualmente no hay series disponibles
+	</div>
+<%end%>

@@ -1,0 +1,13 @@
+<form class="form-inline">
+	<div style="width: 100%; margin-bottom: 2%">
+		<%= search_form_for @q do |f| %>
+		  <div class="form-group">
+		    <%= f.text_field(:titulo_cont ,class: 'form-control',placeholder: "Titulo")%>
+		    <%= f.text_field :genero_cont ,class: 'form-control',placeholder: "Genero"%>
+		    <%= f.number_field :precio_arriendo_cont ,class: 'form-control',placeholder: "Precio Arriendo"%>
+		    <%= f.number_field :temporada_cont ,class: 'form-control',placeholder: "Temporada (cantidad)"%>
+		  </div>
+		  <%= submit_tag "Buscar", class: 'btn btn-success btn-lg btn-submit' %>
+		<%end%>
+	</div>
+</form>

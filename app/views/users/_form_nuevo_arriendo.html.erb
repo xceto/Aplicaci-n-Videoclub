@@ -1,0 +1,32 @@
+
+<%if notice.present? %>
+	<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 20px">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>Success! </strong> <%= notice %>
+	</div>
+<%elsif alert.present? %>	
+	<div class="alert alert-danger alert-dismissible" role="alert" style="margin-top: 20px">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <strong>Error! </strong> <%= alert %>
+	</div>
+<%end%>
+
+<h3 style="margin-bottom: 30px">Agregar Nuevo Arriendo</h3>
+
+<div style="width: 50%; margin-bottom: 2%">
+	<%= form_for(@arriendo) do |f| %>
+	  <div class="form-group">
+		  <%= label_tag(:tipo_arriendo, "Tipo Arriendo") %>
+		  <%= select_tag :tipo_arriendo, options_for_select([["Selecciona" ,nil],["Pelicula" ,1],["Serie",2]]), class: 'form-control'%>
+	  </div>
+
+	  <div class="form-group">
+		  <%= label_tag(:opciones, "Opciones a Arrendar") %>
+		  <%= select_tag :opciones, options_for_select([["Selecciona" ,nil]]), class: 'form-control'%>
+	  </div>
+	  <input type="text" name="user_id" value="<%= params[:user_id] %>" hidden>
+	  <%= submit_tag "Guardar", class: 'btn btn-success btn-lg btn-submit' %>
+	<%end%>
+</div>
+
+<%= link_to 'Volver', '../arriendos', class: "btn btn-info", style: "margin-bottom: 20px"%>
